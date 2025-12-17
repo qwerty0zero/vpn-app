@@ -1,9 +1,12 @@
 <script setup lang="ts">
 const config = useRuntimeConfig()
-console.log(config.public.appTitle)
 </script>
 
 <template>
+  <div>
+    <p>{{config.public.appTitle}}</p>
+    <p>{{config.public.primaryColor}}</p>
+  </div>
 
 </template>
 
