@@ -1,0 +1,10 @@
+:root {
+    --font-main: 'Manrope', sans-serif;
+}
+
+html,body {
+    font-family: var(--font-main), serif;
+    font-size: 10px;
+    user-select: text;
+}
+
