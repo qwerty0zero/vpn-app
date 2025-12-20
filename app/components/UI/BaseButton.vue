@@ -73,10 +73,14 @@ const componentAttrs = computed(() => {
   cursor: pointer;
   text-decoration: none;
   width: fit-content;
+  transition: 0.3s;
 }
 .primary{
   background-color: var(--color-primary);
   color: var(--color-bg-gray);
+  border: 1px solid  var(--color-primary);
+
+
 }
 .secondary{
   background-color: rgba(var(--color-primary-rgb) , 0.05);
@@ -88,6 +92,18 @@ const componentAttrs = computed(() => {
 }
 .rounded{
   padding: 1.8rem;
+}
+
+.primary:hover{
+  background-color: transparent;
+  color: var(--color-primary);
+}
+.secondary:hover{
+  box-shadow:  0 0 26px rgba(var(--color-primary-rgb), 0.5);;
+}
+.contex:hover{
+  background-color: var(--color-app-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1) ;
 }
 .base-button[aria-disabled="true"],
 .base-button:disabled {
