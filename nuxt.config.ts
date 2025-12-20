@@ -7,10 +7,12 @@ export default defineNuxtConfig({
     runtimeConfig: {
         public: {
             appTitle: process.env.VITE_APP_TITLE,
-            primaryColor: process.env.VITE_PRIMARY_COLOR
+            primaryColor: process.env.VITE_PRIMARY_COLOR?.trim()
         }
     },
-  devtools: { enabled: true },
+    css: ['~/assets/css/main.css'],
+
+    devtools: { enabled: true },
     googleFonts: {
         families: {
             Manrope: [100, 200, 300, 400, 500, 600, 700, 800, 900]
