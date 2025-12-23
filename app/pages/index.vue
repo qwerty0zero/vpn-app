@@ -34,6 +34,18 @@ const downloadUrl = computed(() => {
   return links?.[currentOS.value] ?? links?.default ?? '#'
 })
 
+const formattedOS = computed(() => {
+  if (!currentOS) return 'Windows';
+
+  const map = {
+    'ios': 'iOS',
+    'macos': 'MacOs',
+    'windows': 'Windows',
+    'android': 'Android',
+  };
+
+  return map[currentOS.value] || 'Windows';
+});
 
 const handleUpdate = (data: DataType) => {
   currentData.value = data.content
@@ -95,7 +107,7 @@ const onConfirm = () => {
             <template #icon>
               <DefaultSvg :src="externalLinkIcon"/>
             </template>
-            {{currentOS || 'Windows'}}
+            {{formattedOS}}
           </BaseButton>
 
           <BaseButton
