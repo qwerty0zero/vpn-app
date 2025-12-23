@@ -74,6 +74,7 @@ const componentAttrs = computed(() => {
   text-decoration: none;
   width: fit-content;
   transition: 0.3s;
+  text-transform: capitalize;
 }
 .primary{
   background-color: var(--color-primary);
@@ -83,14 +84,14 @@ const componentAttrs = computed(() => {
 
 }
 .secondary{
-  background-color: rgba(var(--color-primary-rgb) , 0.05);
-  border: 1px solid rgba(var(--color-primary-rgb) , 0.24);
+  background-color:  rgb(from var(--color-primary) r g b / 0.05);
+  border: 1px solid  rgb(from var(--color-primary) r g b / 0.24);
 }
 .contex{
   background-color: var(--color-bg-gray);
     border: 1px solid rgba(255, 255, 255, 0.1) ;
 }
-.rounded{
+.rounded-full{
   padding: 1.8rem;
 }
 
@@ -99,7 +100,7 @@ const componentAttrs = computed(() => {
   color: var(--color-primary);
 }
 .secondary:hover{
-  box-shadow:  0 0 26px rgba(var(--color-primary-rgb), 0.5);;
+  box-shadow:  0 0 26px  rgb(from var(--color-primary) r g b / 0.5);
 }
 .contex:hover{
   background-color: var(--color-app-bg);
@@ -110,7 +111,9 @@ const componentAttrs = computed(() => {
   opacity: 0.6;
   pointer-events: none;
 }
-
+.base-button__icon{
+  display: flex;
+}
 .base-button__icon img {
   width: 1em;
   height: 1em;

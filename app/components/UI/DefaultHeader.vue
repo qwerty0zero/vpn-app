@@ -5,7 +5,7 @@ const config = useRuntimeConfig()
 
 <template>
 <header>
-  <img src="@/assets/icons/logo.svg" alt="logo">
+  <img src="@/assets/icons/logo.svg" alt="logo" role="img">
   <h1>{{config.public.appTitle}}</h1>
 </header>
 </template>

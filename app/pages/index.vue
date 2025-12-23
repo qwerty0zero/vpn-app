@@ -1,39 +1,44 @@
 <script setup lang="ts">
 import { useNotifications } from '@/composables/useNotifications'
-const { notify } = useNotifications()
+import { computed } from 'vue'
 
 import BaseButton from "~/components/UI/BaseButton.vue";
 import SetupStepCard from "~/components/UI/SetupStepCard.vue";
 import UserInfoCard from "~/components/UI/UserInfoCard.vue";
-import DefaultDropdown , { type DropdownOption } from "~/components/UI/DefaultDropdown.vue";
+import DefaultDropdown  from "~/components/UI/DefaultDropdown.vue";
 import AppSwitcher from "~/components/UI/AppSwitcher.vue";
 import QrModal from "~/components/UI/QrModal.vue";
+import DefaultSvg from "~/components/UI/DefaultSvg.vue";
 
-const currentOS = ref<DropdownOption | null>(null)
-const currentData = ref<any>(null)
+import telegramIcon from '@/assets/icons/telegram.svg'
+import externalLinkIcon from '@/assets/icons/external-link.svg'
 
-const handleUpdate = (data: any) => {
-  currentData.value = data
-  console.log('Новые данные загружены:', data)
+import happData from "~/assets/json/happ.json"
+import downloadsData from '~/assets/json/downloads.json'
+
+type DownloadLinks = Record<string, string>
+type DownloadsSchema = Record<string, DownloadLinks>
+const downloads = downloadsData as DownloadsSchema
+
+const { notify } = useNotifications()
+
+type DataType = typeof happData
+
+const currentOS = ref<string | null>(null)
+const currentData = ref<DataType>(happData)
+const currentApp = ref<string>('happ')
+const deepLink = 'https://www.google.com/'
+
+const downloadUrl = computed(() => {
+  const links = downloads[currentApp.value]
+  return links?.[currentOS.value] ?? links?.default ?? '#'
+})
+
+
+const handleUpdate = (data: DataType) => {
+  currentData.value = data.content
+  currentApp.value = data.app
 }
-
-const copyLink = async () => {
-  try {
-    const textToCopy =  window.location.href
-
-    await navigator.clipboard.writeText(textToCopy)
-
-    notify('Ссылка скопирована', '',2000)
-
-
-  } catch (err) {
-    notify('Ничего не произошло после нажатия кнопки?', 'Добавьте подписку вручную: получите ссылку в правом верхнем углу, скопируйте её и вставьте в приложении.  Если появится запрос — вставьте ссылку или нажмите «Из буфера» в левом нижнем углу.',5000)
-
-    console.error('Не удалось скопировать: ', err)
-  }
-}
-
-
 
 const showQr = ref(false)
 
@@ -45,21 +50,22 @@ const onConfirm = () => {
   console.log('Кнопка нажата')
   showQr.value = false
 }
+
 </script>
 
 
 <template>
   <div class="flex flex-col page" >
     <div class="button_group flex">
-      <BaseButton  @click="copyLink" class="contex rounded rounded-full shadow-custom-light text-primary" >
+      <BaseButton  @click="openModal" class="contex  rounded-full shadow-custom-light text-primary" >
         <template #icon>
           <img src="@/assets/icons/link.svg" alt="link" />
         </template>
       </BaseButton>
 
-      <BaseButton  class="contex !border-primary-alpha rounded rounded-full shadow-custom-primary text-primary">
+      <BaseButton href="https://telegram.me/BotFather"  target="_blank"  class="contex !border-primary-alpha  rounded-full shadow-custom-primary text-primary">
         <template #icon>
-          <img src="@/assets/icons/telegram.svg" alt="telegram" />
+          <DefaultSvg :src="telegramIcon"/>
         </template>
       </BaseButton>
     </div>
@@ -85,17 +91,18 @@ const onConfirm = () => {
             :text="el.text"
             :index="index"
         >
-          <BaseButton v-if="index === 0" class="secondary rounded-3xl shadow-custom-primary text-primary">
+          <BaseButton v-if="index === 0" :href="downloadUrl" target="_blank" class="secondary rounded-3xl shadow-custom-primary text-primary">
             <template #icon>
-              <img src="@/assets/icons/external-link.svg" alt="external-link" />
+              <DefaultSvg :src="externalLinkIcon"/>
             </template>
-            Windows
+            {{currentOS || 'Windows'}}
           </BaseButton>
 
           <BaseButton
               v-if="index === 1"
+              :href="deepLink"
               class="primary rounded-3xl"
-              @click="openModal"
+              target="_blank"
           >
             Добавить подписку
           </BaseButton>
@@ -128,6 +135,9 @@ const onConfirm = () => {
   gap: 3.2rem;
   flex-direction: column;
 }
+.setup_list{
+  position: relative;
+}
 .button_group{
   gap: 0.8rem;
   align-self: flex-end;
@@ -142,21 +152,24 @@ const onConfirm = () => {
 
 }
 
-
 .list-enter-active,
 .list-leave-active {
   transition: all 0.4s ease;
 }
 
-.list-enter-from,
-.list-leave-to {
+.list-enter-from{
   opacity: 0;
   transform: translateY(20px);
 }
 
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
+}
 .list-leave-active {
   position: absolute;
-  width: 100%;
+  left: 0;
+  right: 0;
   z-index: -1;
 }
 </style>

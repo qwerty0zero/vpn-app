@@ -1,14 +1,15 @@
 <script lang="ts" setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 
 import WindowsIcon from '@/assets/icons/windows.svg'
 import MacIcon from '@/assets/icons/macos.svg'
 import AndroidIcon from '@/assets/icons/android.svg'
 import IosIcon from '@/assets/icons/ios.svg'
 
+// 1. В интерфейсе опции value теперь строго string
 export interface DropdownOption {
   label: string
-  value: string | number
+  value: string
   icon: string
 }
 
@@ -20,7 +21,8 @@ const options: DropdownOption[] = [
 ]
 
 interface Props {
-  modelValue: DropdownOption | null
+  // 2. Props принимает string или null (для v-model="ref<string | null>")
+  modelValue: string | null
   placeholder?: string
 }
 
@@ -29,18 +31,25 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: DropdownOption): void
+  // 3. Возвращаем строго строку
+  (e: 'update:modelValue', value: string): void
 }>()
 
 const isOpen = ref(false)
 const dropdownRef = ref<HTMLElement | null>(null)
+
+// 4. Ищем объект опции по строковому значению
+const selectedOption = computed(() => {
+  return options.find(option => option.value === props.modelValue) || null
+})
 
 const toggle = () => {
   isOpen.value = !isOpen.value
 }
 
 const selectOption = (option: DropdownOption) => {
-  emit('update:modelValue', option)
+  // Эмитим строку
+  emit('update:modelValue', option.value)
   isOpen.value = false
 }
 
@@ -53,6 +62,7 @@ const handleClickOutside = (event: MouseEvent) => {
 onMounted(() => {
   document.addEventListener('click', handleClickOutside)
 
+  // Автоопределение платформы
   if (!props.modelValue) {
     const userAgent = navigator.userAgent.toLowerCase()
     let detectedValue: string | null = null
@@ -63,9 +73,10 @@ onMounted(() => {
     else if (userAgent.includes('win')) detectedValue = 'windows'
 
     if (detectedValue) {
-      const foundOption = options.find(opt => opt.value === detectedValue)
-      if (foundOption) {
-        emit('update:modelValue', foundOption)
+      // Проверяем наличие такой строки в опциях перед эмитом
+      const exists = options.some(opt => opt.value === detectedValue)
+      if (exists) {
+        emit('update:modelValue', detectedValue)
       }
     }
   }
@@ -82,15 +93,15 @@ onUnmounted(() => {
         class="dropdown-trigger bg-bg_gray"
         :class="{ 'is-active': isOpen }"
     >
-      <div v-if="modelValue" style="display: flex; align-items: center; gap: 10px;">
-        <img :src="modelValue.icon" alt="" style="width: 20px; height: 20px;" />
-        <span class="selected-text">{{ modelValue.label }}</span>
+      <div v-if="selectedOption" style="display: flex; align-items: center; gap: 10px;">
+        <img :src="selectedOption.icon" alt="" style="width: 20px; height: 20px;" />
+        <span class="selected-text">{{ selectedOption.label }}</span>
       </div>
 
       <span v-else class="placeholder">{{ placeholder }}</span>
 
       <span class="arrow">
-        <img src="@/assets/icons/sort.svg" alt="sort" role="icon">
+        <img src="@/assets/icons/sort.svg" alt="sort" role="img">
       </span>
     </div>
 
@@ -100,7 +111,7 @@ onUnmounted(() => {
             v-for="option in options"
             :key="option.value"
             class="dropdown-item"
-            :class="{ 'selected': modelValue?.value === option.value }"
+            :class="{ 'selected': modelValue === option.value }"
             @click.stop="selectOption(option)"
         >
           <div style="display: flex; align-items: center; gap: 10px;">
@@ -132,7 +143,6 @@ onUnmounted(() => {
 }
 
 .dropdown-trigger:hover { border-color: #aaa; }
-.dropdown-trigger.is-active { border-color: #3b82f6; }
 
 .placeholder { color: #999; }
 .arrow { transition: transform 0.3s; color: #666; font-size: 0.8em; }

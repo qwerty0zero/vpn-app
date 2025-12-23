@@ -2,9 +2,10 @@
 import { ref, onMounted } from 'vue'
 import pageContent from "~/assets/json/happ.json"
 import pageContent2 from "~/assets/json/koala.json"
+import BaseButton from "~/components/UI/BaseButton.vue";
 
 const emit = defineEmits<{
-  (e: 'update', data: typeof pageContent): void
+  (e: 'update', data: {content: typeof pageContent, app: string}): void
 }>()
 
 const activeTab = ref<'happ' | 'koala'>('happ')
@@ -12,9 +13,9 @@ const activeTab = ref<'happ' | 'koala'>('happ')
 const selectTab = (tab: 'happ' | 'koala') => {
   activeTab.value = tab
   if (tab === 'happ') {
-    emit('update', pageContent)
+    emit('update', {content: pageContent, app: 'happ'})
   } else {
-    emit('update', pageContent2)
+    emit('update', {content: pageContent2, app: 'coala'})
   }
 }
 
@@ -30,22 +31,22 @@ onMounted(() => {
         :class="{ 'slide-right': activeTab === 'koala' }"
     ></div>
 
-    <button
+    <BaseButton
         class="switcher-btn"
         :class="{ 'is-active': activeTab === 'happ' }"
-        @click="selectTab('happ')"
-    >      <img src="@/assets/icons/sun.svg" alt="happ" role="icon">
-
+        @click="selectTab('happ')">
+      <template #icon>
+          <img src="@/assets/icons/sun.svg" alt="happ" role="img">
+      </template>
       <p>Happ</p>
-    </button>
+    </BaseButton>
 
-    <button
+    <BaseButton
         class="switcher-btn"
         :class="{ 'is-active': activeTab === 'koala' }"
-        @click="selectTab('koala')"
-    >
-      Koala Clash
-    </button>
+        @click="selectTab('koala')">
+      <p>Koala Clash</p>
+    </BaseButton>
   </div>
 </template>
 
@@ -95,6 +96,7 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
+  width: 100%;
 }
 
 .switcher-btn:hover {

@@ -9,7 +9,7 @@ export interface AccountData {
 export const accountMock: AccountData = {
     userName: 'r7gf3ok',
     status: true,
-    expireDate: '07.12.2025',
+    expireDate: '2026.01.01',
     usedTraffic: 0,
     totalTraffic: 10
 }

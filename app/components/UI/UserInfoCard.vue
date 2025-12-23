@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
-import { accountMock } from '@/data/account-mock'
+import {computed, ref} from 'vue'
+import {accountMock} from '@/data/account-mock'
 
 import ClockIcon from '@/assets/icons/clock.svg'
 import UserIcon from '@/assets/icons/user.svg'
@@ -15,13 +15,12 @@ const toggle = () => {
 
 const parseDate = (dateStr: string): Date | null => {
   if (!dateStr) return null
-  const [day, month, year] = dateStr.split('.').map(Number)
-  return new Date(year, month - 1, day)
+  return new Date(dateStr)
 }
 
 const statusInfo = computed(() => {
   if (!accountMock.status) {
-    return { text: 'Подписка отключена', class: 'text-red', isWarning: true }
+    return { text: 'Подписка отключена', isWarning: true }
   }
 
   const targetDate = parseDate(accountMock.expireDate)
@@ -37,35 +36,30 @@ const statusInfo = computed(() => {
   if (diffDays < 0) {
     return {
       text: `Истекла ${Math.abs(diffDays)} дн. назад`,
-      class: 'text-red',
       isWarning: true
     }
   }
   else if (diffDays === 0) {
     return {
       text: 'Истекает сегодня',
-      class: 'text-red',
       isWarning: true
     }
   }
   else if (diffDays === 1) {
     return {
       text: 'Истекает завтра',
-      class: 'text-red',
       isWarning: true
     }
   }
   else if (diffDays <= 3) {
     return {
       text: `Истекает через ${diffDays} дня`,
-      class: 'text-red',
       isWarning: true
     }
   }
   else {
     return {
       text: 'Активна',
-      class: 'text-green',
       isWarning: false
     }
   }
@@ -74,7 +68,7 @@ const statusInfo = computed(() => {
 const contentItems = computed(() => [
   {
     label: 'Имя пользователя',
-    value: accountMock.userName,
+    value: accountMock.userName ? accountMock.userName : '--/--',
     img: UserIcon
   },
   {
@@ -84,7 +78,7 @@ const contentItems = computed(() => [
   },
   {
     label: 'Истекает',
-    value: accountMock.expireDate,
+    value: accountMock.expireDate ? accountMock.expireDate : '--/--',
     img: ClockIcon
   },
   {
@@ -97,17 +91,17 @@ const contentItems = computed(() => [
 
 <template>
   <div class="status-card bg-bg_gray shadow-custom-light" @click="toggle">
-    <h3 class="title">{{ accountMock.userName }}</h3>
+    <h3 class="title">{{ accountMock.userName || '--/--' }}</h3>
 
     <span class="flex gap-3 items-center">
-      <p class="subtitle" :class="statusInfo.class">
+      <p class="subtitle" :class="{warn: statusInfo.isWarning}" >
         {{ statusInfo.text }}
       </p>
       <img
           v-if="statusInfo.isWarning"
           src="@/assets/icons/info-circle.svg"
           alt="инфо"
-          role="icon"
+          role="img"
       >
     </span>
 
@@ -117,7 +111,7 @@ const contentItems = computed(() => [
         <div class="content">
           <div v-for="(item, index) in contentItems" :key="index" class="row">
             <span class="icon">
-              <img :alt="item.label" :src="item.img" role="icon">
+              <img :alt="item.label" :src="item.img" role="img">
             </span>
             <div class="text-content">
               <span class="label">{{ item.label }}:</span>
@@ -142,12 +136,6 @@ const contentItems = computed(() => [
   flex-direction: column;
 }
 
-.text-red {
-  color: #FF4D4D;
-}
-.text-green {
-  color: #4CAF50;
-}
 
 .collapsible-wrapper {
   display: grid;
@@ -185,8 +173,11 @@ const contentItems = computed(() => [
 .subtitle {
   font-size: 1.3rem;
   font-weight: 500;
+  color: var(--color-green);
 }
-
+.subtitle.warn{
+  color: var(--color-red);
+}
 .items-center {
   align-items: center;
 }

@@ -1,21 +1,17 @@
 :root {
     --font-main: 'Manrope', sans-serif;
     --color-primary: #3B82F6;
-    --color-primary-rgb: rgb(255, 255, 255);
     --color-app-bg: #0F0F0F;
     --color-bg-gray:#222222;
     --color-red: #FF3300;
     --color-blue: #0004FF;
-    --color-green: #51FF00;
+    --color-green: rgba(81, 255, 0, 0.87);
     --color-orange: #F38C17;
     --color-yellow: #FFEA00;
 
     --color-index: rgba(219, 155, 105, 0.5);
     --radius-xl: 1.2rem;
     --radius-3xl: 2.4rem;
-
-    --primary-shadow: 0 4px 8px rgba(var(--color-primary-rgb), 0.5);
-
 }
 html{
 scrollbar-gutter: stable both-edges;
@@ -26,7 +22,6 @@ html,body {
     font-size: 10px;
     user-select: text;
     color: white;
-
 }
 
 ::selection  {
