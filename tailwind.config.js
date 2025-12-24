@@ -20,11 +20,11 @@ export default {
                 yellow: 'var(--color-yellow)',
             },
             boxShadow: {
-                'custom-light': '0 0 8px rgba(0, 0, 0, 0.25)',
-                'custom-primary': '0 0 8px rgba(var(--color-primary-rgb), 0.5)',
+                'custom-light': '0 0 8px rgb(255 255 255 / 25%)',
+                'custom-primary': '0 0 8px rgb(from var(--color-primary) r g b / 0.5)',
             },
             borderColor: {
-                'primary-alpha': 'rgba(var(--color-primary-rgb), 0.24)'
+                'primary-alpha': 'rgb(from var(--color-primary) r g b / 0.5)'
             },
 
         },

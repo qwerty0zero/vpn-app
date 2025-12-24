@@ -73,28 +73,47 @@ const componentAttrs = computed(() => {
   cursor: pointer;
   text-decoration: none;
   width: fit-content;
+  transition: 0.3s;
+  text-transform: capitalize;
 }
 .primary{
   background-color: var(--color-primary);
   color: var(--color-bg-gray);
+  border: 1px solid  var(--color-primary);
+
+
 }
 .secondary{
-  background-color: rgba(var(--color-primary-rgb) , 0.05);
-  border: 1px solid rgba(var(--color-primary-rgb) , 0.24);
+  background-color:  rgb(from var(--color-primary) r g b / 0.05);
+  border: 1px solid  rgb(from var(--color-primary) r g b / 0.24);
 }
 .contex{
   background-color: var(--color-bg-gray);
     border: 1px solid rgba(255, 255, 255, 0.1) ;
 }
-.rounded{
+.rounded-full{
   padding: 1.8rem;
+}
+
+.primary:hover{
+  background-color: transparent;
+  color: var(--color-primary);
+}
+.secondary:hover{
+  box-shadow:  0 0 26px  rgb(from var(--color-primary) r g b / 0.5);
+}
+.contex:hover{
+  background-color: var(--color-app-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1) ;
 }
 .base-button[aria-disabled="true"],
 .base-button:disabled {
   opacity: 0.6;
   pointer-events: none;
 }
-
+.base-button__icon{
+  display: flex;
+}
 .base-button__icon img {
   width: 1em;
   height: 1em;
