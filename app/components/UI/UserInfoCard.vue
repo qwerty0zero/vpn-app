@@ -1,12 +1,14 @@
 <script lang="ts" setup>
-import {computed, ref} from 'vue'
-import {accountMock} from '@/data/account-mock'
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { accountMock } from '@/data/account-mock'
 
 import ClockIcon from '@/assets/icons/clock.svg'
 import UserIcon from '@/assets/icons/user.svg'
 import UserCheckIcon from '@/assets/icons/user-check.svg'
 import ExchangeIcon from '@/assets/icons/exchange.svg'
 
+const { t } = useI18n()
 const isOpen = ref(false)
 
 const toggle = () => {
@@ -20,11 +22,11 @@ const parseDate = (dateStr: string): Date | null => {
 
 const statusInfo = computed(() => {
   if (!accountMock.status) {
-    return { text: 'Подписка отключена', isWarning: true }
+    return { text: t('user_info.subscription_off'), isWarning: true }
   }
 
   const targetDate = parseDate(accountMock.expireDate)
-  if (!targetDate) return { text: 'Нет даты', class: '', isWarning: false }
+  if (!targetDate) return { text: t('user_info.no_date'), class: '', isWarning: false }
 
   const now = new Date()
   now.setHours(0, 0, 0, 0)
@@ -35,31 +37,31 @@ const statusInfo = computed(() => {
 
   if (diffDays < 0) {
     return {
-      text: `Истекла ${Math.abs(diffDays)} дн. назад`,
+      text: t('user_info.expired_days_ago', { n: Math.abs(diffDays) }),
       isWarning: true
     }
   }
   else if (diffDays === 0) {
     return {
-      text: 'Истекает сегодня',
+      text: t('user_info.expires_today'),
       isWarning: true
     }
   }
   else if (diffDays === 1) {
     return {
-      text: 'Истекает завтра',
+      text: t('user_info.expires_tomorrow'),
       isWarning: true
     }
   }
   else if (diffDays <= 3) {
     return {
-      text: `Истекает через ${diffDays} дня`,
+      text: t('user_info.expires_in_days', { n: diffDays }),
       isWarning: true
     }
   }
   else {
     return {
-      text: 'Активна',
+      text: t('user_info.active'),
       isWarning: false
     }
   }
@@ -67,22 +69,24 @@ const statusInfo = computed(() => {
 
 const contentItems = computed(() => [
   {
-    label: 'Имя пользователя',
+    label: t('user_info.labels.username'),
     value: accountMock.userName ? accountMock.userName : '--/--',
     img: UserIcon
   },
   {
-    label: 'Статус',
-    value: accountMock.status ? 'Активен' : 'Неактивен',
+    label: t('user_info.labels.status'),
+    value: accountMock.status
+        ? t('user_info.status_values.active')
+        : t('user_info.status_values.inactive'),
     img: UserCheckIcon
   },
   {
-    label: 'Истекает',
+    label: t('user_info.labels.expires'),
     value: accountMock.expireDate ? accountMock.expireDate : '--/--',
     img: ClockIcon
   },
   {
-    label: 'Трафик',
+    label: t('user_info.labels.traffic'),
     value: `${accountMock.usedTraffic} / ${accountMock.totalTraffic} GB`,
     img: ExchangeIcon
   }
@@ -100,7 +104,7 @@ const contentItems = computed(() => [
       <img
           v-if="statusInfo.isWarning"
           src="@/assets/icons/info-circle.svg"
-          alt="инфо"
+          alt="info"
           role="img"
       >
     </span>

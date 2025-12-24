@@ -44,3 +44,8 @@ ul, ol {
     list-style: none;
 }
 
+.nuxt-icon{
+    width: unset;
+    height: unset;
+    margin: 0;
+}

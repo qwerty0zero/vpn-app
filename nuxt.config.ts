@@ -2,7 +2,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
     app:{
         head: {
-            title: process.env.VITE_APP_TITLE,
+            title: import.meta.env.VITE_APP_TITLE,
             charset: 'utf-8',
             viewport: 'width=device-width, initial-scale=1',
             link: [
@@ -12,18 +12,15 @@ export default defineNuxtConfig({
                 { rel: 'manifest', href: '/site.webmanifest' }
             ],
             meta: [
-                { name: 'theme-color', content:  process.env.VITE_PRIMARY_COLOR?.trim() }
+                { name: 'theme-color', content:  import.meta.env.VITE_PRIMARY_COLOR?.trim() }
             ]
         },
     },
-    modules: [
-        '@nuxtjs/tailwindcss',
-        '@nuxt/eslint',
-        "@nuxtjs/google-fonts"],
+    modules: ['@nuxtjs/tailwindcss', '@nuxt/eslint', "@nuxtjs/google-fonts", '@nuxtjs/i18n'],
     runtimeConfig: {
         public: {
-            appTitle: process.env.VITE_APP_TITLE,
-            primaryColor: process.env.VITE_PRIMARY_COLOR?.trim()
+            appTitle: import.meta.env.VITE_APP_TITLE,
+            primaryColor: import.meta.env.VITE_PRIMARY_COLOR?.trim()
         }
     },
     css: ['~/assets/css/main.css'],
@@ -36,5 +33,33 @@ export default defineNuxtConfig({
         display: "swap",
         preconnect: true,
         preload: true
-    }
+    },
+    i18n: {
+        lazy: true,
+        langDir: 'locales',
+        defaultLocale: 'ru',
+        strategy: 'prefix',
+        locales: [
+            {
+                code: 'ru',
+                iso: 'ru-RU',
+                name: 'Русский',
+                file: 'ru.json'
+            },
+            {
+                code: 'en',
+                iso: 'en-US',
+                name: 'English',
+                file: 'en.json'
+            }
+        ],
+        detectBrowserLanguage: {
+            useCookie: true,
+            cookieKey: 'i18n_redirected',
+            redirectOn: 'root', // редирект только при заходе на главную
+        },
+    },
+
+
+
 })

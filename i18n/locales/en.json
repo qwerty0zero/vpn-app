@@ -1,0 +1,71 @@
+{
+  "setup": {
+    "title": "Installation",
+    "add_subscription": "Add subscription",
+    "placeholder_os": "Windows"
+  },
+  "instructions": {
+    "koala": [
+      {
+        "title": "Download Happ",
+        "text": "Click the button below and install the application"
+      },
+      {
+        "title": "Add subscription",
+        "text": "Click the button below to add the subscription"
+      },
+      {
+        "title": "If the subscription wasn't added",
+        "text": "If nothing happened after clicking the button, add the subscription manually. Get the link in the top right corner and copy it. In the app, paste the link if requested, or click 'From Clipboard' at the bottom left"
+      }
+    ],
+    "happ": [
+      {
+        "title": "Download Happ",
+        "text": "Click the button below and install the application"
+      },
+      {
+        "title": "Add subscription",
+        "text": "Click the button below to add the subscription"
+      },
+      {
+        "title": "If the subscription wasn't added",
+        "text": "If nothing happened after clicking the button, add the subscription manually. Get the link in the top right corner and copy it. In the app, paste the link if requested, or click 'From Clipboard' at the bottom left"
+      },
+      {
+        "title": "Connect and use",
+        "text": "Select the desired country, then click the connection circle on the right"
+      }
+    ]
+  },
+  "user_info": {
+    "subscription_off": "Subscription disabled",
+    "no_date": "No date",
+    "expired_days_ago": "Expired {n} days ago",
+    "expires_today": "Expires today",
+    "expires_tomorrow": "Expires tomorrow",
+    "expires_in_days": "Expires in {n} days",
+    "active": "Active",
+    "labels": {
+      "username": "Username",
+      "status": "Status",
+      "expires": "Expires",
+      "traffic": "Traffic"
+    },
+    "status_values": {
+      "active": "Active",
+      "inactive": "Inactive"
+    }
+  },
+  "modal": {
+    "get_link_title": "Get link",
+    "qr": {
+      "title": "Scan the QR code above in the client",
+      "text": "Easy subscription addition to any client...",
+      "btn_copy": "Copy link",
+      "copy_success": "Link copied",
+      "copy_error_title": "Nothing happened after clicking?",
+      "copy_error_text": "Add the subscription manually: get the link in the top right corner, copy it, and paste it in the app. If asked, paste the link or click 'From Clipboard' at the bottom left."
+    }
+  }
+}

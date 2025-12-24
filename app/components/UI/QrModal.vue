@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import QrcodeVue from 'qrcode.vue'
-import CloseIcon from '@/assets/icons/close.svg'
 import BaseButton from "~/components/UI/BaseButton.vue";
 import {useNotifications} from "~/composables/useNotifications";
-const { notify } = useNotifications()
 
+const { notify } = useNotifications()
+const { t } = useI18n()
 interface Props {
   isOpen: boolean
   title?: string
@@ -15,10 +16,10 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  title: 'Сканируйте QR-код выше в клиенте',
-  text: 'Простое добавление подписи в любой клиент. Есть и другой вариант: скопируйте ссылку ниже и вставьте в клиент.',
+  title: 'modal.qr.title',
+  text: 'modal.qr.text',
   qrData: 'https://example.com',
-  buttonText: 'Скопировать ссылку'
+  buttonText: 'modal.qr.btn_copy'
 })
 
 const emit = defineEmits<{
@@ -43,12 +44,14 @@ const copyLink = async () => {
 
     await navigator.clipboard.writeText(textToCopy)
 
-    notify('Ссылка скопирована', '',2000)
-
+    notify(t('modal.qr.copy_success'), '', 2000)
 
   } catch (err) {
-    notify('Ничего не произошло после нажатия кнопки?', 'Добавьте подписку вручную: получите ссылку в правом верхнем углу, скопируйте её и вставьте в приложении.  Если появится запрос — вставьте ссылку или нажмите «Из буфера» в левом нижнем углу.',2000)
-
+    notify(
+        t('modal.qr.copy_error_title'),
+        t('modal.qr.copy_error_text'),
+        2000
+    )
     console.error('Не удалось скопировать: ', err)
   }
 }
@@ -76,7 +79,7 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
         <div class="modal-content bg-bg_gray rounded-3xl">
 
           <div class="modal-header">
-            <p class="modal-text">Получить ссылку</p>
+            <p class="modal-text">{{ $t('modal.get_link_title') }}</p>
 
             <button class="close-btn" @click="emit('close')">
               <span class="close-icon">✕</span>
@@ -95,15 +98,15 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
                 class="qr-code"
               />
             </div>
-            <h3 class="modal-title">{{ title }}</h3>
+            <h3 class="modal-title">{{ $t(title) }}</h3>
 
-            <p class="modal-text">{{ text }}</p>
+            <p class="modal-text">{{ $t(text) }}</p>
 
           </div>
 
           <div class="modal-footer">
             <BaseButton  class="primary rounded-3xl action-btn shadow-custom-primary" @click="handleConfirm" >
-              {{ buttonText }}
+              {{ $t(buttonText) }}
             </BaseButton>
 
           </div>

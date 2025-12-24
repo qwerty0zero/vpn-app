@@ -1,11 +1,10 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import pageContent from "~/assets/json/happ.json"
-import pageContent2 from "~/assets/json/koala.json"
+
 import BaseButton from "~/components/UI/BaseButton.vue";
 
 const emit = defineEmits<{
-  (e: 'update', data: {content: typeof pageContent, app: string}): void
+  (e: 'update', data:string): void
 }>()
 
 const activeTab = ref<'happ' | 'koala'>('happ')
@@ -13,9 +12,9 @@ const activeTab = ref<'happ' | 'koala'>('happ')
 const selectTab = (tab: 'happ' | 'koala') => {
   activeTab.value = tab
   if (tab === 'happ') {
-    emit('update', {content: pageContent, app: 'happ'})
+    emit('update', 'happ')
   } else {
-    emit('update', {content: pageContent2, app: 'coala'})
+    emit('update', 'koala')
   }
 }
 

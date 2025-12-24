@@ -6,7 +6,7 @@
     "android": "https://play.google.com/store/apps/details?id=com.happproxy",
     "default": "https://www.happ.su/main"
   },
-  "coala": {
+  "koala": {
     "default": "https://github.com/coolcoala/clash-verge-rev-lite"
   }
 }

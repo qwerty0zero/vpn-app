@@ -4,7 +4,7 @@ const config = useRuntimeConfig()
 </script>
 
 <template>
-<header>
+<header class="relative z-10  backdrop-blur-lg">
   <img src="@/assets/icons/logo.svg" alt="logo" role="img">
   <h1>{{config.public.appTitle}}</h1>
 </header>

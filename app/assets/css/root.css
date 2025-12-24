@@ -2,7 +2,8 @@
     --font-main: 'Manrope', sans-serif;
     --color-primary: #3B82F6;
     --color-app-bg: #0F0F0F;
-    --color-bg-gray:#222222;
+    --color-bg-gray: rgba(34, 34, 34, 0.4);
+    --color-gray: rgb(34, 34, 34);
     --color-red: #FF3300;
     --color-blue: #0004FF;
     --color-green: rgba(81, 255, 0, 0.87);
@@ -15,7 +16,10 @@
 }
 html{
 scrollbar-gutter: stable both-edges;
-    background-color: var(--color-bg-gray);
+    background-color: var(--color-app-bg);
+}
+.primary_color_svg{
+    fill: var(--color-primary);
 }
 html,body {
     font-family: var(--font-main), serif;

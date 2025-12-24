@@ -78,7 +78,7 @@ const componentAttrs = computed(() => {
 }
 .primary{
   background-color: var(--color-primary);
-  color: var(--color-bg-gray);
+  color: var(--color-gray);
   border: 1px solid  var(--color-primary);
 
 
