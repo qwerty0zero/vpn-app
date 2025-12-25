@@ -67,5 +67,8 @@
       "copy_error_title": "Nothing happened after clicking?",
       "copy_error_text": "Add the subscription manually: get the link in the top right corner, copy it, and paste it in the app. If asked, paste the link or click 'From Clipboard' at the bottom left."
     }
+  },
+  "preloader": {
+    "loading": "Loading..."
   }
 }

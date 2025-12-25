@@ -9,12 +9,22 @@ import UserCheckIcon from '@/assets/icons/user-check.svg'
 import ExchangeIcon from '@/assets/icons/exchange.svg'
 
 const { t } = useI18n()
-const isOpen = ref(false)
 
-const toggle = () => {
-  isOpen.value = !isOpen.value
+const isOpen = ref(false)
+const isDesktop = ref(false)
+
+const checkWidth = () => {
+  isDesktop.value = window.innerWidth >= 1200
+  if (isDesktop.value) {
+    isOpen.value = true
+  }
 }
 
+const toggle = () => {
+  if (!isDesktop.value) {
+    isOpen.value = !isOpen.value
+  }
+}
 const parseDate = (dateStr: string): Date | null => {
   if (!dateStr) return null
   return new Date(dateStr)
@@ -91,6 +101,15 @@ const contentItems = computed(() => [
     img: ExchangeIcon
   }
 ])
+
+onMounted(() => {
+  checkWidth()
+  window.addEventListener('resize', checkWidth)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', checkWidth)
+})
 </script>
 
 <template>
