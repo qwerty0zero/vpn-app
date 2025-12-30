@@ -108,7 +108,7 @@ onMounted(() => {
 
 
 <template>
-  <div class=" page backdrop-blur-md"  >
+  <div class=" page"  >
 
     <div class="setings">
       <div class="button_group flex">
@@ -232,7 +232,7 @@ onMounted(() => {
 }
 
 .setup_title{
-  font-size: 2.8rem;
+  font-size: var(--font-size-heading-xl);
 }
 .row{
   gap: 0.8rem;
@@ -254,21 +254,5 @@ onMounted(() => {
   opacity: 0;
   transform: translateY(-20px);
 }
-@media screen and (min-width: 1200px) {
-  .page{
-    flex-direction: row;
-  }
-  .setup_list {
-    max-width: 800px;
-  }
-  .setings{
-    flex-grow: 2;
 
-  }
-  .instruction{
-    flex-grow:3;
-    max-width: 800px;
-
-  }
-}
 </style>

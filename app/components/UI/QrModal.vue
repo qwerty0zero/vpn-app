@@ -66,7 +66,7 @@ onMounted(() => {
     const color = getComputedStyle(document.documentElement)
         .getPropertyValue('--color-primary')
         .trim()
-    qrColor.value = color || '#3e1616'
+    qrColor.value = 'rgb('+color+')' || '#3e1616'
   }
 })
 onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
@@ -76,7 +76,7 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
   <Teleport to="body">
     <Transition name="modal">
       <div v-if="isOpen" class="modal-backdrop " @click.self="emit('close')">
-        <div class="modal-content bg-bg_gray rounded-3xl">
+        <div class="modal-content  rounded-3xl">
 
           <div class="modal-header">
             <p class="modal-text">{{ $t('modal.get_link_title') }}</p>
@@ -141,6 +141,7 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
   flex-direction: column;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: var(--color-gray);
 }
 
 .modal-header {
@@ -154,7 +155,7 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
 .modal-title {
   margin: 0;
   color: white;
-  font-size: 2rem;
+  font-size: var(--font-size-heading-lg);
   font-weight: 600;
 }
 
@@ -163,7 +164,7 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
   border: none;
   cursor: pointer;
   color: #888;
-  font-size: 1.5rem;
+  font-size: var(--font-size-button);
   padding: 0;
   display: flex;
   align-items: center;
@@ -186,7 +187,7 @@ onUnmounted(() => document.removeEventListener('keydown', handleKeydown))
 
 .modal-text {
   color: rgba(255, 255, 255, 0.6);
-  font-size: 1.7rem;
+  font-size: var(--font-size-heading);
 }
 
 .qr-wrapper {

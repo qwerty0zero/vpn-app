@@ -11,19 +11,12 @@ import ExchangeIcon from '@/assets/icons/exchange.svg'
 const { t } = useI18n()
 
 const isOpen = ref(false)
-const isDesktop = ref(false)
 
-const checkWidth = () => {
-  isDesktop.value = window.innerWidth >= 1200
-  if (isDesktop.value) {
-    isOpen.value = true
-  }
-}
+
 
 const toggle = () => {
-  if (!isDesktop.value) {
     isOpen.value = !isOpen.value
-  }
+
 }
 const parseDate = (dateStr: string): Date | null => {
   if (!dateStr) return null
@@ -102,14 +95,6 @@ const contentItems = computed(() => [
   }
 ])
 
-onMounted(() => {
-  checkWidth()
-  window.addEventListener('resize', checkWidth)
-})
-
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', checkWidth)
-})
 </script>
 
 <template>
@@ -189,12 +174,12 @@ onBeforeUnmount(() => {
 }
 
 .title {
-  font-size: 2.2rem;
+  font-size: var(--font-size-heading-lg);
   margin-bottom: 0.4rem;
 }
 
 .subtitle {
-  font-size: 1.3rem;
+  font-size: var(--font-size-text);
   font-weight: 500;
   color: var(--color-green);
 }
@@ -230,12 +215,14 @@ onBeforeUnmount(() => {
 
 .label {
   color: rgba(255, 255, 255, 0.85);
-  font-size: 1.7rem;
+  font-size: var(--font-size-heading);
+
   font-weight: 600;
 }
 
 .value {
   color: rgba(255, 255, 255, 0.6);
-  font-size: 1.7rem;
+  font-size: var(--font-size-heading);
+
 }
 </style>

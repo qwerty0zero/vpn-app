@@ -28,16 +28,16 @@ defineProps<{
 
 }
 h3{
-  font-size: 2rem;
+  font-size: var(--font-size-heading-lg);
   font-weight: bold;
 }
 .content p{
-  font-size: 1.7rem;
+  font-size: var(--font-size-heading);
   color: rgba(255, 255, 255, 0.60);
 }
 .index{
   font-weight: bold;
-  font-size: 4.4rem;
+  font-size: var(--font-size-index);
   color: var(--color-index);
   height: fit-content;
   line-height: 1;

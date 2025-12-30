@@ -58,7 +58,7 @@ onMounted(() => {
   width: 100%;
   isolation: isolate;
 
-  font-size: 1.6rem;
+  font-size: var(--font-size-button);
   font-weight: bold;
   color: white;
 

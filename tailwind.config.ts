@@ -9,7 +9,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: 'var(--color-primary)',
+        primary: 'rgb(var(--color-primary))',
         bg_dark: 'var(--color-app-bg)',
         bg_gray: 'var(--color-bg-gray)',
         red: 'var(--color-red)',
@@ -19,11 +19,11 @@ export default {
         yellow: 'var(--color-yellow)',
       },
       boxShadow: {
-        'custom-light': '0 0 8px rgb(255 255 255 / 25%)',
-        'custom-primary': '0 0 8px rgb(from var(--color-primary) r g b / 0.5)',
+        'custom-light': '0 0 8px rgba(255 255 255 / 25%)',
+        'custom-primary': '0 0 8px rgba(var(--color-primary) / 0.5)',
       },
       borderColor: {
-        'primary-alpha': 'rgb(from var(--color-primary) r g b / 0.5)'
+        'primary-alpha': 'rgba(var(--color-primary) / 0.5)'
       },
     },
     borderRadius: {

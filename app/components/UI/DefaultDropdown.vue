@@ -58,7 +58,7 @@ onUnmounted(() => {
 
     <div @click="toggle" class="trigger-container">
       <slot name="trigger" :selected="selectedOption" :isOpen="isOpen">
-        <div class="default-trigger bg-bg_gray" :class="{ 'is-active': isOpen }">
+        <div class="default-trigger shadow-custom-light" :class="{ 'is-active': isOpen }">
           <div v-if="selectedOption" class="flex-center">
             <img v-if="selectedOption.icon" :src="selectedOption.icon" class="opt-icon" />
             <span class="selected-text">{{ selectedOption.label }}</span>
@@ -72,7 +72,7 @@ onUnmounted(() => {
     </div>
 
     <transition name="fade">
-      <ul v-if="isOpen" class="dropdown-menu bg-bg_gray shadow-custom-light rounded-xl">
+      <ul v-if="isOpen" class="dropdown-menu  shadow-custom-light rounded-xl">
         <li
             v-for="option in props.options"
             :key="option.value"
@@ -107,10 +107,14 @@ onUnmounted(() => {
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   transition: all 0.2s;
-  font-size: 1.7rem;
+  font-size: var(--font-size-heading);
   gap: 2rem;
+  background-color: var(--color-gray);
+
 }
-.default-trigger:hover { border-color: #aaa; }
+.default-trigger:hover {
+  background-color: var(--color-app-bg);
+}
 
 .flex-center { display: flex; align-items: center; gap: 10px; }
 .opt-icon { width: 20px; height: 20px; }
@@ -128,13 +132,14 @@ onUnmounted(() => {
   border: 1px solid rgba(255, 255, 255, 0.05);
   z-index: 100;
   overflow: hidden;
+  background-color: var(--color-gray);
 }
 
 .dropdown-menu { right: 0; }
 
-.dropdown-item { padding: 10px 14px; cursor: pointer; font-size: 1.6rem; }
+.dropdown-item { padding: 10px 14px; cursor: pointer; font-size: var(--font-size-button); }
 .dropdown-item:hover { background-color: #181818; }
-.dropdown-item.selected { background-color: #181818; color: var(--color-primary); }
+.dropdown-item.selected { background-color: #181818; color:rgb(var(--color-primary)); }
 
 .fade-enter-active, .fade-leave-active { transition: opacity 0.2s, transform 0.2s; }
 .fade-enter-from, .fade-leave-to { opacity: 0; transform: translateY(-5px); }

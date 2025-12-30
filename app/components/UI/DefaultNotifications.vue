@@ -71,12 +71,12 @@ onUnmounted(() => {
   object-fit: contain;
 }
 h5{
-  font-size: 1.7rem;
+  font-size: var(--font-size-heading);
   font-weight: 600;
 
 }
 .text {
-  font-size: 1.3rem;
+  font-size:var(--font-size-text);
   font-weight: 500;
 }
 
