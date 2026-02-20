@@ -1,0 +1,12 @@
+{
+  "happ": {
+    "windows": "https://www.happ.su/main",
+    "macos": "https://apps.apple.com/us/app/happ-proxy-utility/id6504287215",
+    "ios": "https://apps.apple.com/us/app/happ-proxy-utility/id6504287215",
+    "android": "https://play.google.com/store/apps/details?id=com.happproxy",
+    "default": "https://www.happ.su/main"
+  },
+  "koala": {
+    "default": "https://github.com/coolcoala/clash-verge-rev-lite"
+  }
+}

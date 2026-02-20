@@ -1,10 +1,68 @@
 :root {
     --font-main: 'Manrope', sans-serif;
+    --color-primary: #3B82F6;
+    --color-app-bg: #0F0F0F;
+    --color-app-bg-tr: rgba(15, 15, 15, 0.8);
+
+    --color-bg-gray: rgba(34, 34, 34, 0.4);
+    --color-gray: rgb(34, 34, 34);
+    --color-red: #FF3300;
+    --color-blue: #0004FF;
+    --color-green: rgba(81, 255, 0, 0.87);
+    --color-orange: #F38C17;
+    --color-yellow: #FFEA00;
+
+    --color-index: rgba(219, 155, 105, 0.5);
+    --radius-xl: 1.2rem;
+    --radius-3xl: 2.4rem;
+
+
+    --square-size: 8rem;
+    --line-width: 0.2rem;
+    --line-color: rgba(248, 248, 248, 0.1);
+
+    --oval-width: 60vw;
+    --oval-height: 60vh;
+    --oval-color: #00f5d4;
+    --oval-blur: 4rem;
+    --oval-opacity: 0.5;
+
+    --font-size-button: 1.4rem;
+    --font-size-header: 1.4rem;
+    --font-size-text: 1.2rem;
+    --font-size-heading: 1.4rem;
+    --font-size-heading-lg: 1.6rem;
+    --font-size-heading-xl: 2.2rem;
+    --font-size-index: 3.5rem;
 }
 
+
+@media (min-width: 600px) {
+    :root {
+        --font-size-button: 1.6rem;
+        --font-size-header: 1.4rem;
+        --font-size-text: 1.3rem;
+        --font-size-heading: 1.7rem;
+        --font-size-heading-lg: 2rem;
+        --font-size-heading-xl: 2.8rem;
+        --font-size-index: 4.4rem;
+    }
+}
+html{
+scrollbar-gutter: stable both-edges;
+    background-color: var(--color-app-bg);
+}
+.primary_color_svg{
+    fill: rgb(var(--color-primary));
+}
 html,body {
     font-family: var(--font-main), serif;
     font-size: 10px;
     user-select: text;
+    color: white;
 }
 
+::selection  {
+    color: #0F0F0F;
+    background-color: rgba(255, 255, 255, 0.5);
+}
